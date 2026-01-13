@@ -2,6 +2,7 @@
 Geracao de PDF com o resultado do calculo de retencao
 """
 
+from io import BytesIO
 from fpdf import FPDF
 from datetime import date
 from calculadora import ResultadoRetencao
@@ -159,4 +160,6 @@ def gerar_pdf(
     pdf.cell(0, 7, resultado.data_recolhimento.strftime("%d/%m/%Y"), ln=True)
 
     # Retorna o PDF como bytes
-    return bytes(pdf.output())
+    buffer = BytesIO()
+    pdf.output(buffer)
+    return buffer.getvalue()

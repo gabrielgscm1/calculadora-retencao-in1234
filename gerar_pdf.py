@@ -159,4 +159,4 @@ def gerar_pdf(
     pdf.cell(0, 7, resultado.data_recolhimento.strftime("%d/%m/%Y"), ln=True)
 
     # Retorna o PDF como bytes
-    return pdf.output()
+    return bytes(pdf.output())

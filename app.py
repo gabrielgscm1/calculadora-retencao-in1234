@@ -12,6 +12,7 @@ from dados_in1234 import (
     TIPOS_DISPENSA_RETENCAO,
     CODIGOS_DARF
 )
+from gerar_pdf import gerar_pdf
 
 # Configuracao da pagina
 st.set_page_config(
@@ -190,6 +191,28 @@ if st.button("🔢 Calcular Retencao", type="primary", use_container_width=True)
 
             {"**DISPENSA DE RETENCAO:** " + resultado.motivo_dispensa if resultado.dispensa_retencao else ""}
             """)
+
+        # Botao de download PDF
+        st.markdown("---")
+        st.subheader("📥 Exportar")
+
+        pdf_bytes = gerar_pdf(
+            resultado=resultado,
+            cnpj=cnpj,
+            razao_social=razao_social,
+            regime_tributario=regime_tributario,
+            natureza_servico=natureza_servico,
+            data_pagamento=data_pagamento
+        )
+
+        st.download_button(
+            label="📄 Baixar PDF",
+            data=pdf_bytes,
+            file_name=f"retencao_{date.today().strftime('%Y%m%d')}.pdf",
+            mime="application/pdf",
+            type="primary",
+            use_container_width=True
+        )
 
 # Rodape
 st.markdown("---")

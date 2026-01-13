@@ -37,6 +37,7 @@ calculadora_retencao/
 ├── app.py              # Interface Streamlit
 ├── calculadora.py      # Logica de calculo
 ├── dados_in1234.py     # Constantes e dados da IN 1.234/2012
+├── gerar_pdf.py        # Geracao de PDF para exportacao
 ├── requirements.txt    # Dependencias Python
 ├── README.md           # Documentacao do projeto
 ├── DESENVOLVIMENTO.md  # Este arquivo
@@ -127,6 +128,38 @@ Estrutura da interface:
    - Tabela de tributos
    - Informacoes para recolhimento
    - Resumo para impressao
+   - Botao para exportar PDF
+
+### 3.4 Modulo de Geracao de PDF (`gerar_pdf.py`)
+
+Gera PDF formatado com o resultado do calculo:
+
+```python
+from fpdf import FPDF
+
+class PDFRetencao(FPDF):
+    def header(self):
+        # Cabecalho com titulo
+    def footer(self):
+        # Rodape com data de geracao
+
+def gerar_pdf(resultado, cnpj, razao_social, ...):
+    # 1. Cria instancia do PDF
+    # 2. Adiciona dados do fornecedor
+    # 3. Adiciona dados do pagamento
+    # 4. Tabela de tributos retidos
+    # 5. Resumo (bruto, retido, liquido)
+    # 6. Informacoes para recolhimento
+    # 7. Retorna PDF em bytes
+```
+
+Conteudo do PDF:
+- Dados do fornecedor (CNPJ, razao social, regime)
+- Dados do pagamento (natureza, data, valor)
+- Alerta de dispensa (se aplicavel)
+- Tabela de tributos com aliquotas e valores
+- Total retido e valor liquido
+- Codigo DARF e data limite de recolhimento
 
 ---
 
@@ -221,7 +254,7 @@ Repositorio criado: `https://github.com/SEU_USUARIO/calculadora-retencao-in1234`
 
 Aguardar 2-3 minutos para o deploy completar.
 
-**URL final:** `https://calculadora-retencao-in1234.streamlit.app`
+**URL final:** `https://calculadora-retencao.streamlit.app`
 
 ---
 
@@ -235,6 +268,7 @@ Aguardar 2-3 minutos para o deploy completar.
 - [x] Exibicao do codigo DARF correto
 - [x] Calculo da data limite de recolhimento
 - [x] Resumo para impressao
+- [x] Exportar resultado em PDF
 - [x] Deploy na nuvem
 
 ### 7.2 Codigos DARF Suportados
@@ -248,7 +282,7 @@ Aguardar 2-3 minutos para o deploy completar.
 
 ### 7.3 Links
 
-- **Aplicacao:** https://calculadora-retencao-in1234.streamlit.app
+- **Aplicacao:** https://calculadora-retencao.streamlit.app
 - **Repositorio:** https://github.com/gabrielgscm1/calculadora-retencao-in1234
 
 ---
@@ -256,7 +290,6 @@ Aguardar 2-3 minutos para o deploy completar.
 ## 8. Proximos Passos (Sugestoes)
 
 - [ ] Adicionar mais codigos DARF do Anexo I
-- [ ] Exportar resultado em PDF
 - [ ] Historico de calculos
 - [ ] Validacao de CNPJ
 - [ ] Integracao com banco de dados
